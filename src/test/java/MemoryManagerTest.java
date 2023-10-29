@@ -34,22 +34,15 @@ class MemoryManagerTest {
 	void test() {
 		
 		MemoryAllocation chunk1 = Memory.requestMemory(size1, "Diego");
-		
-		assertEquals(chunk1.getOwner(), correct1.getOwner());
-		assertEquals(chunk1.getPosition(), correct1.getPosition());
-		assertEquals(chunk1.getLength(), correct1.getLength());
+		assertTrue(comparator(chunk1, correct1));
 		
 		MemoryAllocation chunk2 = Memory.requestMemory(size2, "Mehak");
-		assertEquals(correct2.getOwner(), chunk2.getOwner());
-		assertEquals(chunk2.getPosition(), correct2.getPosition());
-		assertEquals(chunk2.getLength(), correct2.getLength());
+		assertTrue(comparator(chunk2, correct2));
 		
 		assertEquals(null, Memory.requestMemory(size3, "None"));
 		
 		MemoryAllocation chunk4 = Memory.requestMemory(size4, "Davis");
-		assertEquals(correct4.getOwner(), chunk4.getOwner());
-		assertEquals(chunk4.getPosition(), correct4.getPosition());
-		assertEquals(chunk4.getLength(), correct4.getLength());
+		assertTrue(comparator(chunk4, correct4));
 		
 		assertEquals(null, Memory.requestMemory(size1, "None"));
 		
@@ -57,12 +50,20 @@ class MemoryManagerTest {
 		
 		MemoryAllocation newchunk1 =  Memory.requestMemory(size1, "NewChunk");
 		newCorrect1 = new MemoryAllocation(NewChunk, pos1, size1, null, correct2);
-        assertEquals(newCorrect1.getOwner(), newchunk1.getOwner());
-        assertEquals(newCorrect1.getPosition(), newchunk1.getPosition());
-        assertEquals(newCorrect1.getLength(), newchunk1.getLength());
-
-		
-		
+		assertTrue(comparator(newchunk1, newCorrect1));
+	}
+	
+	boolean comparator(MemoryAllocation mem1, MemoryAllocation mem2) {
+		if(! mem1.getOwner().equals(mem2.getOwner())) {
+			return false;
+		}
+		if(mem1.getPosition() != mem2.getPosition()) {
+			return false;
+		}
+		if(mem1.getLength() != mem2.getLength()){
+			return false;
+		}
+		return true;
 	}
 
 }
