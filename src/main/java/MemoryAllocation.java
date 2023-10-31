@@ -5,7 +5,6 @@ public class MemoryAllocation
     String owner;  //which process owns this memory
     long pos;      //where does it start
     long len;      //how long is the memory
-    MemoryAllocation prev;
     MemoryAllocation next;
 
 
@@ -14,13 +13,11 @@ public class MemoryAllocation
 
 
     //feel free to alter the constructor if you need/want to
-    public MemoryAllocation(String owner, long pos, long len, MemoryAllocation prev, MemoryAllocation next)
-
+    public MemoryAllocation(String owner, long pos, long len,  MemoryAllocation next)
     {
 	this.owner = owner;
 	this.pos = pos;
 	this.len=len;
-	this.prev = prev;
 	this.next = next;
     }
 
